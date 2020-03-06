@@ -1,0 +1,10 @@
+$my_root $mol_view
+	sub /
+		<= Name $mol_string
+			hint \Добавить задачу
+			value?val <=> name?val \
+		<= add $mol_button_major
+			click?val <= addTodoItem?val null
+			sub /\Add task
+		<= tasks $mol_list
+			rows <= root_rows /
