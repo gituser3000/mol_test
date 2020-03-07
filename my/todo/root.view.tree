@@ -8,3 +8,8 @@ $my_root $mol_view
 			sub /\Add task
 		<= tasks $mol_list
 			rows <= root_rows /
+	Task_row!id $mol_row sub / 
+		<= todo_item!id \
+		<= delete_button!id $mol_button_minor
+			click <= deleteTodoItem!id null
+			sub /\Delete
