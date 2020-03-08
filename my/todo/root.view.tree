@@ -1,8 +1,8 @@
 $my_root $mol_view
 	sub /
-		<= Name $mol_string
-			hint \Добавить задачу
+		<= Name $my_todoInput
 			value?val <=> name?val \
+			submit?val <=> submit?val null
 		<= add $mol_button_major
 			click?val <= addTodoItem?val null
 			sub /\Add task
@@ -17,3 +17,9 @@ $my_root $mol_view
 			buttonTitle \Restore
 			data => finishedItems
 			action!id <= restoreItem!id null
+$my_todoInput $mol_string
+	hint \Добавить задачу
+	value?val <=> name?val \
+	event *
+		^
+		keydown?event <=> submit?event null
