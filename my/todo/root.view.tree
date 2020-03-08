@@ -6,25 +6,14 @@ $my_root $mol_view
 		<= add $mol_button_major
 			click?val <= addTodoItem?val null
 			sub /\Add task
-		<= firstList $mol_row
-			sub /
-				<= tasksToMake $mol_view
-					sub <= getTodoTitle /
-				<= tasks $mol_list
-					rows <= root_rows /
-		<= secondList $mol_row
-			sub /
-				<= finishedTasks $mol_view 
-					sub / \Выполненные задачи:
-				<= tasks2 $mol_list
-					rows <= finished_rows /
-	Task_row!id $mol_row sub / 
-		<= todo_item!id \
-		<= delete_button!id $mol_button_minor
-			click <= deleteTodoItem!id null
-			sub /\Delete
-	Finished_row!id $mol_row sub / 
-		<= finished_item!id \
-		<= restore!id $mol_button_minor
-			click <= restoreItem!id null
-			sub /\Restore
+			enabled <= isAddEnabled null
+		<= ActiveTasksList $my_list
+			listTitle \Items to do:
+			buttonTitle \Delete
+			data => activeItems!val
+			action!id <= deleteTodoItem!id null
+		<= FinishedTasksList $my_list
+			listTitle \Finished items:
+			buttonTitle \Restore
+			data => finishedItems
+			action!id <= restoreItem!id null
