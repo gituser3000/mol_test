@@ -1,5 +1,6 @@
 $my_list $mol_view
 	data / 
+	labelAttr \
 	sub /
 		<= listTitle \
 		<= Items $mol_list

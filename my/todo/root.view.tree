@@ -10,12 +10,14 @@ $my_root $mol_view
 		<= ActiveTasksList $my_list
 			listTitle \Items to do:
 			buttonTitle \Delete
-			data => activeItems!val
+			data <= activeItems /
+			labelAttr \label
 			action!id <= deleteTodoItem!id null
 		<= FinishedTasksList $my_list
 			listTitle \Finished items:
 			buttonTitle \Restore
-			data => finishedItems
+			data <= finishedItems /
+			labelAttr \label
 			action!id <= restoreItem!id null
 $my_todoInput $mol_string
 	hint \Добавить задачу

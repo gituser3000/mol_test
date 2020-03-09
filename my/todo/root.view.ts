@@ -1,6 +1,15 @@
+interface TodoItem {
+	active: boolean;
+	label: string;
+	id:number;
+}
+
 namespace $.$$ {
 	export class $my_root extends $.$my_root {
-
+		@ $mol_mem
+		data(next?: null, force?: $mol_mem_force_update):TodoItem[]{
+			return $mol_fetch.json("http://localhost:3000/todos");
+		}
 		sub() {
 			return [ this.Name(),
 				this.add(),
@@ -8,19 +17,28 @@ namespace $.$$ {
 				this.finishedItems().length ? this.FinishedTasksList(): []
 			] as readonly any[]
 		}
-		
 		@ $mol_mem
-		activeItems( next = [] as string[] ) { 
-			return this.ActiveTasksList().data(next);
+		activeItems() { 
+			return this.data().filter(item=> item.active);
 		}
-		
+
 		@ $mol_mem
-		finishedItems( next = [] as string[] ) { 
-			return this.FinishedTasksList().data(next);
+		finishedItems() { 
+			return this.data().filter(item=> !item.active);
 		}
 
 		addTodoItem(){
-			this.activeItems([...this.activeItems(), this.name()]);
+			$mol_fetch.json("http://localhost:3000/todos", {
+				method: 'POST',
+				headers : {
+					'content-type' : 'application/json' ,
+				} ,
+				body:JSON.stringify({
+					label: this.name(),
+					active: true
+				})
+			})
+			this.data(null, $mol_mem_force_update);
 			this.name("");
 		}
 
@@ -34,18 +52,25 @@ namespace $.$$ {
 			return this.name()
 		}
 
-		restoreItem(id: number){
-			const finished_items= [...this.finishedItems()];
-			const toRestore = finished_items.splice(id, 1);
-			this.finishedItems(finished_items);
-			this.activeItems([...this.activeItems(), ...toRestore]);
+		patchTodoAndRefresh(id:number, data: Partial<TodoItem>){
+			$mol_fetch.json(`http://localhost:3000/todos/${id}`,{
+				method: "PATCH",
+				body: JSON.stringify(data),
+				headers:{
+					'content-type' : 'application/json'
+				}
+			})
+			this.data(null, $mol_mem_force_update);
 		}
 
-		deleteTodoItem(id: number){
-			const items = [...this.activeItems()];
-			const deleted = items.splice(id, 1);
-			this.finishedItems([...this.finishedItems(), ...deleted]);
-			this.activeItems([...items]);
+		restoreItem(index: number){
+			const item: TodoItem = this.FinishedTasksList().data()[index];
+			this.patchTodoAndRefresh(item.id, {active: true})
+		}
+
+		deleteTodoItem(index: number){
+			const item: TodoItem = this.ActiveTasksList().data()[index];
+			this.patchTodoAndRefresh(item.id, {active: false})
 		}
 	}
 }
