@@ -64,12 +64,12 @@ namespace $.$$ {
 		}
 
 		restoreItem(index: number){
-			const item: TodoItem = this.FinishedTasksList().data()[index];
+			const item: TodoItem = this.finishedItems()[index];
 			this.patchTodoAndRefresh(item.id, {active: true})
 		}
 
 		deleteTodoItem(index: number){
-			const item: TodoItem = this.ActiveTasksList().data()[index];
+			const item: TodoItem = this.activeItems()[index];
 			this.patchTodoAndRefresh(item.id, {active: false})
 		}
 	}
