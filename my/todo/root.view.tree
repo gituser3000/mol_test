@@ -7,14 +7,20 @@ $my_root $mol_view
 			click?val <= addTodoItem?val null
 			sub /\Add task
 			enabled <= isAddEnabled null
+		<= active_page_link $mol_link
+			arg *
+				page \active
+			sub /\Active page
+		<= finished_page_link $mol_link
+			arg *
+				page \finished
+			sub /\Finished page
 		<= ActiveTasksList $my_list
-			listTitle \Items to do:
 			buttonTitle \Delete
 			data <= activeItems /
 			labelAttr \label
 			action!id <= deleteTodoItem!id null
 		<= FinishedTasksList $my_list
-			listTitle \Finished items:
 			buttonTitle \Restore
 			data <= finishedItems /
 			labelAttr \label

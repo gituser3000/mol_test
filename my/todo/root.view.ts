@@ -11,10 +11,12 @@ namespace $.$$ {
 			return $mol_fetch.json("http://localhost:3000/todos");
 		}
 		sub() {
+			const page = $mol_state_arg.value('page');
 			return [ this.Name(),
 				this.add(),
-				this.activeItems().length ? this.ActiveTasksList(): [],
-				this.finishedItems().length ? this.FinishedTasksList(): []
+				this.active_page_link(),
+				this.finished_page_link(),
+				!page || page === 'active' ? this.ActiveTasksList() : this.FinishedTasksList()
 			] as readonly any[]
 		}
 		@ $mol_mem

@@ -2,12 +2,6 @@
     display: block;
 }
 
-[my_root_finishedtaskslist]{
-    float:right;
-    width: 50%;
-}
-
-[my_root_activetaskslist]{
-    float:left;
-    width: 50%;
+[my_root_finishedtaskslist], [my_root_activetaskslist]{
+    width: 100%;
 }
