@@ -7,8 +7,8 @@ interface TodoItem {
 namespace $.$$ {
 	export class $my_root extends $.$my_root {
 		@ $mol_mem
-		data(next?: null, force?: $mol_mem_force_update):TodoItem[]{
-			return $mol_fetch.json("http://localhost:3000/todos");
+		data(next?: any, force?: $mol_mem_force_update){
+			return $mol_fetch.json("http://localhost:3000/todos") as TodoItem[];
 		}
 		sub() {
 			const page = $mol_state_arg.value('page');
@@ -35,7 +35,7 @@ namespace $.$$ {
 				headers : {
 					'content-type' : 'application/json' ,
 				} ,
-				body:JSON.stringify({
+				body: JSON.stringify({
 					label: this.name(),
 					active: true
 				})
