@@ -1,4 +1,3 @@
-.gitmodules
 [submodule "mol"]
     path = mol
     url = git@github.com:eigenmethod/mol.git
