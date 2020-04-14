@@ -1,0 +1,8 @@
+.gitmodules
+[submodule "mol"]
+    path = mol
+    url = git@github.com:eigenmethod/mol.git
+
+[submodule "hyoo"]
+    path = hyoo
+    url = git@github.com:hyoo-ru/hyoo.git
